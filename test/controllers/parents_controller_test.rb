@@ -18,7 +18,7 @@ class ParentsControllerTest < ActionController::TestCase
 
   test "should create parent" do
     assert_difference('Parent.count') do
-      post :create, parent: { email: @parent.email, first_name: @parent.first_name, last_name: @parent.last_name, password_digest: @parent.password_digest, student_id: @parent.student_id }
+      post :create, parent: { email: "parent@example.com", first_name: "John", last_name: "Parent", password_digest: "password", student_id: 1 }
     end
 
     assert_redirected_to parent_path(assigns(:parent))

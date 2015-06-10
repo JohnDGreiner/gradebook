@@ -3,11 +3,10 @@
 one:
   first_name: MyString
   last_name: MyString
-  email: MyString
-  password_digest: MyString
-
+  email: one@example.com
+  password_digest: <%= BCrypt::Password.create("iamteacher") %>
 two:
   first_name: MyString
   last_name: MyString
-  email: MyString
+  email: two@example.com
   password_digest: MyString
