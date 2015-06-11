@@ -5,7 +5,14 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    if session[:role] == 'student'
+      @students = Student.where(id: session[:user_id])
+    elsif session[:role] == 'teacher'
+      @students = Student.where(teacher_id: session[:user_id])
+    elsif session[:role] == 'parent'
+      parent = Parent.find(session[:user_id])
+      @students = Student.where(id: parent.student_id)
+    end
   end
 
   # GET /students/1
@@ -15,7 +22,7 @@ class StudentsController < ApplicationController
 
   # GET /students/new
   def new
-    @student = Student.new
+    @student = Student.new(teacher_id: session[:user_id])
   end
 
   # GET /students/1/edit
@@ -25,7 +32,7 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    @student = Student.new(student_params)
+    @student = Student.new(student_params,teacher_id: session[:user_id])
 
     respond_to do |format|
       if @student.save
@@ -70,17 +77,13 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:first_name, :last_name, :email, :password_digest, :teacher_id)
+      params.require(:student).permit(:first_name, :last_name, :email, :password, :teacher_id)
     end
 
     def logged_in?
-      if session[:role] == "student"
-        if Student.find_by_id(session[:user_id])
-        else
-          redirect_to sessions_login_path, notice: 'You must login before accessing this page.'
-        end
+      if (session[:user_id])
       else
-        redirect_to sessions_login_path, notice: 'You do not have access to this page.'
+        redirect_to sessions_login_path, notice: 'You must login before accessing this page.'
       end
     end
 end
