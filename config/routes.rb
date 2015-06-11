@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  root 'sessions#login'
+  root 'students#index'
 
   get 'sessions/login'
+  post 'sessions/login'
 
   get 'sessions/logout'
 

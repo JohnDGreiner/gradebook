@@ -1,6 +1,6 @@
 <div>
   <div></div>
-  <div >
+  <div>
   <h1>Login</h1>
   <p>Choose your role and login to your account.</p>
 
@@ -9,11 +9,9 @@
       <div>
         <%= label_tag :role %>
       </div>
-      <select :role>
-        <option value="teacher">Teacher</option>
-        <option value="parent">Parent</option>
-        <option value="student">Student</option>
-      </select><br><br>
+      <div>
+        <%= select_tag :role, options_for_select([["Teacher","teacher"],["Parent","parent"],["Student","student"]]) %>
+      <br><br>
       <div>
         <%= label_tag :email %>
       </div>
@@ -32,7 +30,7 @@
     <div>
       <div><br>
         <div>
-          <%= submit_tag 'Login'%>
+          <%= submit_tag 'Login' %>
         </div>
       </div>
     </div>

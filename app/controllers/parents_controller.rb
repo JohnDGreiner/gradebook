@@ -1,4 +1,5 @@
 class ParentsController < ApplicationController
+  before_action :logged_in?
   before_action :set_parent, only: [:show, :edit, :update, :destroy]
 
   # GET /parents
@@ -70,5 +71,16 @@ class ParentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def parent_params
       params.require(:parent).permit(:first_name, :last_name, :email, :student_id, :password_digest)
+    end
+
+    def logged_in?
+      if session[:role] == "parent"
+        if Parent.find_by_id(session[:user_id])
+        else
+          redirect_to sessions_login_path, notice: 'You must login before accessing this page.'
+        end
+      else
+        redirect_to sessions_login_path, notice: 'You do not have access to this page.'
+      end
     end
 end

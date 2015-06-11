@@ -71,4 +71,11 @@ class GradesController < ApplicationController
     def grade_params
       params.require(:grade).permit(:grade, :assignment_name, :assignment_on, :student_id)
     end
+
+    def logged_in?
+      if Teacher.find_by_id(session[:user_id])
+      else
+        redirect_to sessions_login_path, notice: 'You must login before accessing this page.'
+      end
+    end
 end
