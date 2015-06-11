@@ -1,2 +1,40 @@
-<h1>Sessions#login</h1>
-<p>Find me in app/views/sessions/login.html.erb</p>
+<div>
+  <div></div>
+  <div >
+  <h1>Login</h1>
+  <p>Choose your role and login to your account.</p>
+
+  <%= form_tag do %>
+    <div>
+      <div>
+        <%= label_tag :role %>
+      </div>
+      <select :role>
+        <option value="teacher">Teacher</option>
+        <option value="parent">Parent</option>
+        <option value="student">Student</option>
+      </select><br><br>
+      <div>
+        <%= label_tag :email %>
+      </div>
+      <div>
+        <%= text_field_tag :email %><br>
+      </div>
+    </div>
+    <div>
+      <div>
+        <%= label_tag :password %>
+      </div>
+      <div>
+        <%= password_field_tag :password %><br>
+      </div>
+    </div>
+    <div>
+      <div><br>
+        <div>
+          <%= submit_tag 'Login'%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
